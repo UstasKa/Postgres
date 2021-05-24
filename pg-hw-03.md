@@ -71,4 +71,41 @@ otus=# \d company;
 Indexes:
     "company_pkey" PRIMARY KEY, btree (id)
 ```
-
+- подключится к контейнеру с сервером с ноутбука/комьютера вне инстансов GCP
+не забываем создать Firewall policy в GCP, открывающее порт 5432 и после этого подключаемся:
+```bash
+docker run -it --rm postgres:latest psql -h 34.66.42.199 -U otus otus
+```
+- удалить контейнер с сервером
+```bash
+docker stop postgre
+docker rm postgre
+```
+- создать его заново
+```bash
+docker run --name=postgre -d --restart=always -e POSTGRES_PASSWORD='otus' -e POSTGRES_USER='otus' -e POSTGRES_DB='otus' -v /var/lib/postgres:/var/lib/postgresql/data  -p 5432:5432 postgres:latest
+```
+- подключится снова из контейнера с клиентом к контейнеру с сервером
+```bash
+docker run -it --rm --link=postgre postgres:latest psql -h postgre -U otus otus
+```
+- проверить, что данные остались на месте
+```sql
+otus=# \d company;
+                  Table "public.company"
+ Column  |     Type      | Collation | Nullable | Default
+---------+---------------+-----------+----------+---------
+ id      | integer       |           | not null |
+ name    | text          |           | not null |
+ age     | integer       |           | not null |
+ address | character(50) |           |          |
+ salary  | real          |           |          |
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+```
+- оставляйте в ЛК ДЗ комментарии что и как вы делали и как боролись с проблемами
+### Комментарии
+- обязательно использовать внешние папки для данных типа /var/lib/postgres;
+- обязательно монтировать в папку /var/lib/postgresql/data иначе данные потеряются;
+- Желательно использовать docker volumes;
+- не забывать открывать порты на фаерволе в GCP.
