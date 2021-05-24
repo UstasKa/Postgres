@@ -38,5 +38,37 @@ mkdir /var/lib/postgres
 ```bash
 docker run --name=postgre -d --restart=always -e POSTGRES_PASSWORD='otus' -e POSTGRES_USER='otus' -e POSTGRES_DB='otus' -v /var/lib/postgres:/var/lib/postgresql/data  -p 5432:5432 postgres:latest
 ```
-- развернуть контейнер с клиентом postgres
-- 
+- развернуть контейнер с клиентом postgres и
+- подключится из контейнера с клиентом к контейнеру с сервером и сделать таблицу с парой строк
+```bash
+docker run -it --rm --link=postgre postgres:latest psql -h postgre -U otus otus
+```
+```sql
+otus=# CREATE TABLE COMPANY(
+otus(#    ID INT PRIMARY KEY     NOT NULL,
+otus(#    NAME           TEXT    NOT NULL,
+otus(#    AGE            INT     NOT NULL,
+otus(#    ADDRESS        CHAR(50),
+otus(#    SALARY         REAL
+otus(# );
+CREATE TABLE
+otus=# \d
+        List of relations
+ Schema |  Name   | Type  | Owner
+--------+---------+-------+-------
+ public | company | table | otus
+(1 row)
+
+otus=# \d company;
+                  Table "public.company"
+ Column  |     Type      | Collation | Nullable | Default
+---------+---------------+-----------+----------+---------
+ id      | integer       |           | not null |
+ name    | text          |           | not null |
+ age     | integer       |           | not null |
+ address | character(50) |           |          |
+ salary  | real          |           |          |
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+```
+
