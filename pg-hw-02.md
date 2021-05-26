@@ -1,4 +1,5 @@
-## Задача:
+## Физический уровень PostgreSQL 
+### Задача:
 - создайте виртуальную машину c Ubuntu 20.04 LTS в GCE типа e2-medium в default VPC в любом регионе и зоне, например us-central1-a
 - поставьте на нее PostgreSQL через sudo apt
 - проверьте что кластер запущен через sudo -u postgres pg_lsclusters
@@ -21,12 +22,12 @@
 - напишите получилось или нет и почему
 - зайдите через через psql и проверьте содержимое ранее созданной таблицы
 
-## задание со звездочкой *: 
+### задание со звездочкой *: 
 - не удаляя существующий GCE инстанс сделайте новый, поставьте на его PostgreSQL, удалите файлы с данными из /var/lib/postgres, 
   перемонтируйте внешний диск который сделали ранее от первой виртуальной машины ко второй и запустите PostgreSQL на второй машине так
   чтобы он работал с данными на внешнем диске, расскажите как вы это сделали и что в итоге получилось.
 
-## Решение:
+### Решение:
 в GCP создаем ВМ и устанавливаем PG
 создаем диск на 10гб и подключаем его к ВМ с PG
 останавливаем PG, подключаем в систему диск, переносим данные:
@@ -74,7 +75,7 @@ select * from persons
   5 | sveta      | svetova
 (5 rows)
 ```
-## Решение задание со звездочкой *
+### Решение задание со звездочкой *
 в GCP создаем вторую ВМ postgres-12-second и устанавливаем на нее PG:
 ```bash
 apt update && apt upgrade -y && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && apt-get update && apt-get -y install postgresql && apt install unzip
