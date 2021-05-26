@@ -1,4 +1,5 @@
 ## MVCC, vacuum и autovacuum. 
+---
 ### Задача
 - создать GCE инстанс типа e2-medium и SSD 10GB
 - установить на него PostgreSQL 13 с дефолтными настройками
@@ -12,3 +13,24 @@
 - отчет лучше в экселе с графиками
 
 ### Решение
+- создать GCE инстанс типа e2-medium и SSD 10GB и установить на него PostgreSQL 13 с дефолтными настройками
+```bash
+apt update && apt upgrade -y && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && apt-get update && apt-get -y install postgresql && apt install unzip
+systemctl status postgresql
+```
+- применить параметры настройки PostgreSQL из прикрепленного к материалам занятия файла
+```sql
+max_connections = 40
+shared_buffers = 1GB
+effective_cache_size = 3GB
+maintenance_work_mem = 512MB
+checkpoint_completion_target = 0.9
+wal_buffers = 16MB
+default_statistics_target = 500
+random_page_cost = 4
+effective_io_concurrency = 2
+work_mem = 6553kB
+min_wal_size = 4GB
+max_wal_size = 16GB
+```
+- выполнить pgbench -i postgres
