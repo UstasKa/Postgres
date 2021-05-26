@@ -192,4 +192,8 @@ revoke create on schema public from public;
 revoke all on database testdb from public;
 \c testdb testread;
 ```
+### Выводы
+- Не простая тема с правами и требует детального изучения, если стоит задача гранулярной раздачи прав;
+- Может возникнуть проблема с правами при удалении и добавлении таблиц заново;
+- На почитать https://postgrespro.ru/docs/postgresql/13/user-manag
 
