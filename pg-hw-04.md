@@ -180,8 +180,7 @@ grant select on all tables in schema testnm TO readonly;
 ```
 31. сделайте select * from testnm.t1;
 32. получилось?
-да, тепер все получилось
-33. ура!
+Да, тепер все получилось
 34. теперь попробуйте выполнить команду create table t2(c1 integer); insert into t2 values (2);
 35. а как так? нам же никто прав на создание таблиц и insert в них под ролью readonly?
 36. есть идеи как убрать эти права? если нет - смотрите шпаргалку
@@ -193,7 +192,4 @@ revoke create on schema public from public;
 revoke all on database testdb from public;
 \c testdb testread;
 ```
-37. если вы справились сами то расскажите что сделали и почему, если смотрели шпаргалку - объясните что сделали и почему выполнив указанные в ней команды
 
-38. теперь попробуйте выполнить команду create table t3(c1 integer); insert into t2 values (2);
-39. расскажите что получилось и почему
