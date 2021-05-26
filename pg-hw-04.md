@@ -135,7 +135,7 @@ ERROR:  permission denied for table t1
 testdb=>
 ```
 17-21. напишите что именно произошло в тексте домашнего задания.
-Таблица создана в схеме public, а не testnm и прав на public для роли readonly не давали
+- Таблица создана в схеме public, а не testnm и прав на public для роли readonly не давали
 
 22. вернитесь в базу данных testdb под пользователем postgres
 ```sql
@@ -158,13 +158,13 @@ insert into testnm.t1 values(1);
 26. зайдите под пользователем testread в базу данных testdb
 27. сделайте select * from testnm.t1;
 28. получилось?
-не получилось
+- не получилось
 ```sql
 testdb=> select * from testnm.t1;
 ERROR:  permission denied for table t1
 ```
-29. есть идеи почему? если нет - смотрите шпаргалку
-мы пересоздавали таблицу, поэтому прав нет.
+29. Есть идеи почему? Если нет - смотрите шпаргалку. 
+- Мы пересоздавали таблицу, поэтому прав нет.
 30. как сделать так чтобы такое больше не повторялось? если нет идей - смотрите шпаргалку
 ```sql
 \c testdb postgres;
@@ -173,15 +173,15 @@ alter default privileges in schema testnm grant select on tables to readonly;
 ```
 31. сделайте select * from testnm.t1;
 32. получилось?
-нет
-33. есть идеи почему? если нет - смотрите шпаргалку
-потому что alter default будет действовать для новых таблиц а grant select on all tables in schema testnm TO readonly отработал только для существующих на тот момент времени. надо сделать снова или grant select или пересоздать таблицу
+- нет
+33. есть идеи почему? если нет - смотрите шпаргалку.
+- потому что alter default будет действовать для новых таблиц а grant select on all tables in schema testnm TO readonly отработал только для существующих на тот момент времени. - надо сделать снова или grant select или пересоздать таблицу
 ```sql
 grant select on all tables in schema testnm TO readonly;
 ```
 31. сделайте select * from testnm.t1;
 32. получилось?
-Да, тепер все получилось
+- Да, тепер все получилось
 34. теперь попробуйте выполнить команду create table t2(c1 integer); insert into t2 values (2);
 35. а как так? нам же никто прав на создание таблиц и insert в них под ролью readonly?
 36. есть идеи как убрать эти права? если нет - смотрите шпаргалку
