@@ -19,7 +19,12 @@ apt update && apt upgrade -y && sh -c 'echo "deb http://apt.postgresql.org/pub/r
 systemctl status postgresql
 ```
 - применить параметры настройки PostgreSQL из прикрепленного к материалам занятия файла
-```sql
+Делаем бэкап конфига на всякий:
+```bash
+cp /etc/postgresql/13/main/postgresql.conf /etc/postgresql/13/main/postgresql.conf_old
+```
+Задаем парамерты согласно заданию в /etc/postgresql/13/main/postgresql.conf:
+```bash
 max_connections = 40
 shared_buffers = 1GB
 effective_cache_size = 3GB
@@ -33,4 +38,5 @@ work_mem = 6553kB
 min_wal_size = 4GB
 max_wal_size = 16GB
 ```
+## некорректный параметр work_mem = 6553kB заменил на work_mem = 6MB
 - выполнить pgbench -i postgres
