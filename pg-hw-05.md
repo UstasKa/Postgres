@@ -38,5 +38,22 @@ work_mem = 6553kB
 min_wal_size = 4GB
 max_wal_size = 16GB
 ```
-## некорректный параметр work_mem = 6553kB заменил на work_mem = 6MB
+с параметром work_mem = 6553KB кластер отказался стартовать из-за моей опечатки. заменил на work_mem = 6553kB. после этого запустился без проблем
+```bash
+root@pg-hw-05:~# pg_lsclusters
+Ver Cluster Port Status Owner    Data directory              Log file
+13  main    5432 down   postgres /var/lib/postgresql/13/main /var/log/postgresql/postgresql-13-main.log
+root@pg-hw-05:~# tail -f /var/log/postgresql/postgresql-13-main.log
+2021-05-27 17:52:58.793 GMT [13122] LOG:  invalid value for parameter "work_mem": "6553KB"
+2021-05-27 17:52:58.793 GMT [13122] HINT:  Valid units for this parameter are "B", "kB", "MB", "GB", and "TB".
+2021-05-27 17:52:58.793 UTC [13122] FATAL:  configuration file "/etc/postgresql/13/main/postgresql.conf" contains errors
+pg_ctl: could not start server
+Examine the log output.
+2021-05-27 18:05:42.884 GMT [13218] LOG:  invalid value for parameter "work_mem": "6553KB"
+2021-05-27 18:05:42.884 GMT [13218] HINT:  Valid units for this parameter are "B", "kB", "MB", "GB", and "TB".
+2021-05-27 18:05:42.885 UTC [13218] FATAL:  configuration file "/etc/postgresql/13/main/postgresql.conf" contains errors
+pg_ctl: could not start server
+```
+> Почитать про Автовакуум можно здесь:
+> https://postgrespro.ru/docs/postgrespro/13/runtime-config-autovacuum
 - выполнить pgbench -i postgres
