@@ -19,8 +19,8 @@ apt update && apt upgrade -y && sh -c 'echo "deb http://apt.postgresql.org/pub/r
 systemctl status postgresql
 ```
 - применить параметры настройки PostgreSQL из прикрепленного к материалам занятия файла
-Делаем бэкап конфига на всякий:
 ```bash
+Делаем бэкап конфига на всякий:
 cp /etc/postgresql/13/main/postgresql.conf /etc/postgresql/13/main/postgresql.conf_old
 ```
 Задаем парамерты согласно заданию в /etc/postgresql/13/main/postgresql.conf:
