@@ -168,8 +168,30 @@ tps = 646.574573 (excluding connections establishing)
 sudo -u postgres pgbench -i postgres
 sudo -u postgres pgbench -c8 -P 60 -T 1200 -U postgres postgres
 starting vacuum...end.
+progress: 60.0 s, 955.9 tps, lat 8.365 ms stddev 5.532
+progress: 120.0 s, 993.0 tps, lat 8.055 ms stddev 5.131
+progress: 180.0 s, 980.3 tps, lat 8.160 ms stddev 5.090
+progress: 240.0 s, 963.5 tps, lat 8.302 ms stddev 5.476
+progress: 300.0 s, 976.6 tps, lat 8.191 ms stddev 5.186
+progress: 360.0 s, 679.1 tps, lat 11.778 ms stddev 19.003
+progress: 420.0 s, 598.5 tps, lat 13.365 ms stddev 22.667
+progress: 480.0 s, 609.5 tps, lat 13.124 ms stddev 22.722
+progress: 540.0 s, 608.4 tps, lat 13.147 ms stddev 22.390
+progress: 600.0 s, 606.4 tps, lat 13.193 ms stddev 22.508
+progress: 660.0 s, 612.8 tps, lat 13.055 ms stddev 21.686
+progress: 720.0 s, 592.6 tps, lat 13.498 ms stddev 22.565
+progress: 780.0 s, 605.5 tps, lat 13.207 ms stddev 22.604
+progress: 840.0 s, 596.8 tps, lat 13.404 ms stddev 22.994
+progress: 900.0 s, 597.7 tps, lat 13.383 ms stddev 22.450
+progress: 960.0 s, 602.5 tps, lat 13.278 ms stddev 22.211
+progress: 1020.0 s, 604.8 tps, lat 13.226 ms stddev 21.691
+progress: 1080.0 s, 615.5 tps, lat 12.997 ms stddev 21.622
+progress: 1140.0 s, 610.5 tps, lat 13.099 ms stddev 21.493
+progress: 1200.0 s, 607.3 tps, lat 13.172 ms stddev 22.037
+tps = 700.857840 (including connections establishing)
+tps = 700.859344 (excluding connections establishing)
 ```
-## Второй этап. Высокие настройки Autovacuum
+## Третий этап. Высокие настройки Autovacuum
 | Name                                 |  setting  |  context   |  short_desc                                                                               |
 |--------------------------------------|-----------|------------|-------------------------------------------------------------------------------------------|
 |autovacuum                            | on        | sighup     | Starts the autovacuum subprocess.                                                         |
@@ -191,8 +213,33 @@ starting vacuum...end.
 sudo -u postgres pgbench -i postgres
 sudo -u postgres pgbench -c8 -P 60 -T 1200 -U postgres postgres
 starting vacuum...end.
-
+progress: 60.0 s, 963.9 tps, lat 8.295 ms stddev 5.418
+progress: 120.0 s, 966.4 tps, lat 8.277 ms stddev 5.269
+progress: 180.0 s, 973.7 tps, lat 8.215 ms stddev 5.160
+progress: 240.0 s, 958.6 tps, lat 8.345 ms stddev 5.193
+progress: 300.0 s, 964.0 tps, lat 8.298 ms stddev 5.215
+progress: 360.0 s, 648.3 tps, lat 12.339 ms stddev 20.375
+progress: 420.0 s, 625.4 tps, lat 12.786 ms stddev 20.776
+progress: 480.0 s, 629.2 tps, lat 12.714 ms stddev 21.053
+progress: 540.0 s, 611.6 tps, lat 13.073 ms stddev 21.786
+progress: 600.0 s, 628.2 tps, lat 12.735 ms stddev 21.310
+progress: 660.0 s, 614.6 tps, lat 13.012 ms stddev 21.896
+progress: 720.0 s, 610.6 tps, lat 13.101 ms stddev 22.334
+progress: 780.0 s, 610.1 tps, lat 13.112 ms stddev 22.456
+progress: 840.0 s, 607.0 tps, lat 13.177 ms stddev 22.444
+progress: 900.0 s, 610.7 tps, lat 13.096 ms stddev 22.419
+progress: 960.0 s, 604.9 tps, lat 13.223 ms stddev 22.484
+progress: 1020.0 s, 610.5 tps, lat 13.101 ms stddev 22.100
+progress: 1080.0 s, 604.0 tps, lat 13.240 ms stddev 22.658
+progress: 1140.0 s, 600.5 tps, lat 13.319 ms stddev 22.720
+progress: 1200.0 s, 600.2 tps, lat 13.328 ms stddev 22.696
+tps = 702.115887 (including connections establishing)
+tps = 702.117358 (excluding connections establishing)
 ```
-### Выводы
-1. При проведении тестирования необходимо помнить, что запуск pgbench грузит процессор более чем на 40%.
-2. 
+### Примечание
+- При проведении тестирования необходимо помнить, что запуск pgbench грузит процессор более чем на 40%.
+
+## Результат
+
+![TPS](https://user-images.githubusercontent.com/80751278/120077668-332a7980-c0b4-11eb-9989-25fde43758b3.JPG)
+
