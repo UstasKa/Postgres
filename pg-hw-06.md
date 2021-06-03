@@ -20,7 +20,9 @@ sudo -u postgres psql
 ```
 1. Настройте выполнение контрольной точки раз в 30 секунд.
 ```sql
+проверяем размер кэша:
 SELECT setting, unit FROM pg_settings WHERE name = 'shared_buffers'; 
+уменьшаем его до 200 страниц и рестартуем кластер
 ALTER SYSTEM SET shared_buffers = 200;
 \q
 ```
