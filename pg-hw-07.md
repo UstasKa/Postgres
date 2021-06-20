@@ -42,7 +42,7 @@ show deadlock_timeout;
 ```psql
 begin;
 select name FROM HW07 WHERE id = 1 FOR UPDATE;
-select pg_sleep(20);
+select pg_sleep(10);
 update HW07 SET name = 'V_Sess1' WHERE id = 2;
 commit;
 ```
@@ -82,4 +82,6 @@ select * from HW07;
   1 | G_Sess2
 (2 rows)
 ```
-2. 
+2. Смоделируйте ситуацию обновления одной и той же строки тремя командами UPDATE в разных сеансах. Изучите возникшие блокировки в представлении pg_locks и убедитесь, что все они понятны. Пришлите список блокировок и объясните, что значит каждая.
+
+
